@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Form, Input, Button, Icon, InputNumber, Alert } from 'antd';
+import { Card, Form, Input, Button, InputNumber } from 'antd';
 import TrackerContext from '../TrackerContext';
 import './card.css';
 
@@ -17,7 +17,7 @@ export default class CardItem extends React.Component {
     }
 
     handleInputChange = (e) => {
-        if(Number.isInteger(e)){
+        if (Number.isInteger(e)) {
             this.setState(
                 { hours: e }
             );
@@ -27,22 +27,24 @@ export default class CardItem extends React.Component {
         );
     }
 
+
     handleSubmit = (e, props) => {
-        const { hours, comments, rows } = this.state;
+        const { hours, comments, rows, payRate } = this.state;
         let data = rows;
         let id = 0;
-        if(!data){
+        if (!data) {
             data = []
         }
-        if(data.length){
+        if (data.length) {
             id = data.length + 1
-        }else{ 
-            id = 1 
+        } else {
+            id = 1
         }
         const newRow = {
             id,
             hours,
             comments,
+            payRate,
             day: props
         }
         this.setState({
@@ -53,9 +55,9 @@ export default class CardItem extends React.Component {
     }
 
     componentDidMount() {
-        const data =  JSON.parse(localStorage.getItem('myData'));
+        const data = JSON.parse(localStorage.getItem('myData'));
         this.setState({ rows: data });
-      }
+    }
 
     render() {
         return (
@@ -66,12 +68,12 @@ export default class CardItem extends React.Component {
                             <Card title={props.day} bordered={false}>
                                 <Form onSubmit={(e) => this.handleSubmit(e, props)}>
                                     <Form.Item>
-                                            <p>Add working hours</p>
-                                            <InputNumber min={0} max={8} onChange={(e) => this.handleInputChange(e)}/>
+                                        <p>Add working hours</p>
+                                        <InputNumber min={0} max={8} onChange={(e) => this.handleInputChange(e)} />
                                     </Form.Item>
                                     <Form.Item>
-                                            <p>Add comment</p>
-                                            <TextArea placeholder="Add working comments" onChange={(e) => this.handleInputChange(e.target.value)}/>
+                                        <p>Add comment</p>
+                                        <TextArea placeholder="Add working comments" onChange={(e) => this.handleInputChange(e.target.value)} />
                                     </Form.Item>
                                     <Form.Item>
                                         <Button type="dashed" htmlType="submit" >Save time</Button>

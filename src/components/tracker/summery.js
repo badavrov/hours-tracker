@@ -1,8 +1,5 @@
 import React from 'react';
-import { DatePicker, Divider } from 'antd';
-
-const { WeekPicker } = DatePicker;
-
+import { Divider } from 'antd';
 
 export default class Summery extends React.Component {
     constructor(props) {
@@ -11,7 +8,6 @@ export default class Summery extends React.Component {
             rows: [],
         };
     }
-
 
     componentDidMount() {
         const data = JSON.parse(localStorage.getItem('myData'));
@@ -24,7 +20,6 @@ export default class Summery extends React.Component {
         if (!data) {
             data = []
         }
-        console.log(data)
         const mapData = data.map((row) => {
             if (row.day.type === 'weekday') return (
                 <div key={row.id}>
@@ -55,7 +50,6 @@ export default class Summery extends React.Component {
                 sumHrs = sumHrs + row.hours
             });
         }
-
         return (
             <div className="summery-container">
                 <h3>This week summery</h3>
