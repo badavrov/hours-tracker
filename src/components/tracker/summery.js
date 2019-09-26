@@ -21,26 +21,26 @@ export default class Summery extends React.Component {
     RenderRows = () => {
         const { rows } = this.state;
         let data = rows;
-        if(!data){
+        if (!data) {
             data = []
         }
         console.log(data)
         const mapData = data.map((row) => {
-            if(row.day.type==='weekday') return(
-            <div key={row.id}>
-                <span>Day <b>{row.day.day}</b>, </span>
-                <span>spent <b>{row.hours}</b>hrs </span>
-                <p> Comments: {row.comments}</p>
-            </div>
+            if (row.day.type === 'weekday') return (
+                <div key={row.id}>
+                    <span>Day <b>{row.day.day}</b>, </span>
+                    <span>spent <b>{row.hours}</b>hrs </span>
+                    <p> Comments: {row.comments}</p>
+                </div>
             )
-            return(
+            return (
                 <div key={row.id}>
                     <span>Day <b>{row.day.day}</b> is <b>{row.day.type}</b>, </span>
-                    <span>spent <b>{row.hours}</b>hrs </span><br/>
+                    <span>spent <b>{row.hours}</b>hrs </span><br />
                     <i>Note: Weekends we pay 150% hr</i>
                     <p> Comments: {row.comments}</p>
                 </div>
-                )
+            )
         });
         return (
             <div>{mapData}</div>
@@ -50,10 +50,11 @@ export default class Summery extends React.Component {
     render() {
         const { rows } = this.state;
         var sumHrs = 0;
-        rows.map((row) => {
-            sumHrs = sumHrs + row.hours
+        if (rows) {
+            rows.map((row) => {
+                sumHrs = sumHrs + row.hours
+            });
         }
-        );
 
         return (
             <div className="summery-container">
